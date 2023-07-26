@@ -1,0 +1,16 @@
+{% if results %}
+    <ul>
+        {% for i in results %}
+            <li><p>{{i.name }}</p></li>
+            <li><p></p>{{i.synopsis}}</p></li>
+            <li><p>{{i.premiere}}</p></li>
+            <li><p>{{i.actors}}</p></li>
+            <li><p>{{i.director}}</p></li>
+            <li><p>{{i.genre}}</p></li>
+            <li><p>{{i.image}}</p></li>
+        {% endfor %}
+    </ul>
+
+{% else %}
+
+{% endif %}
