@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Cinema</title>
+  </head>
+  <body>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0;
+        }
+        body {
+            padding: 8px;
+        }
+    </style>
+    <header>
+      {% block header %}
+      {% endblock %}
+    </header>
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+    <footer>
+      {% block footer %}
+      {% endblock %}
+    </footer>
+  </body>
+</html>

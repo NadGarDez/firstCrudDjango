@@ -1,16 +1,75 @@
-{% if results %}
-    <ul>
-        {% for i in results %}
-            <li><p>{{i.name }}</p></li>
-            <li><p></p>{{i.synopsis}}</p></li>
-            <li><p>{{i.premiere}}</p></li>
-            <li><p>{{i.actors}}</p></li>
-            <li><p>{{i.director}}</p></li>
-            <li><p>{{i.genre}}</p></li>
-            <li><p>{{i.image}}</p></li>
-        {% endfor %}
-    </ul>
+{% extends "cinema/base.html" %}
+
+{% block header %}
+    {%include "cinema/header.html"%}
+{% endblock%}
+{% block content %}
+{% if result %}
+    <style>
+        .information-container {
+            background-color: beige;
+            margin-top: 16;
+            border-radius: 5px;
+            padding: 8px;
+        }
+        .movieTitleContainer p {
+            font-size: 30px;
+            font-weight: 700;
+            color: #ff8e00
+        }
+        .rowInfoContainer {
+            display: flex;
+            flex-direction: row;
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+
+        .rowInfoContainer div {
+            margin-right: 16px;
+            color:rgb(39, 130, 241);
+            font-size: 20px;
+        }
+
+        .resumeContainer {
+            margin-top: 16px;
+            color: rgb(39, 130, 241);
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+    </style>
+    <div class="information-container">
+        <div class="movieTitleContainer">
+            <p>{{result.name}}</p>
+        </div>
+        <div class="rowInfoContainer">
+            <div class="actor_container">
+                <p>
+                    <b>Actores</b>  : {{result.actors}}
+                </p>
+            </div>
+            <div class="director_container">
+                <p>
+                    <b>Director</b>  : {{result.director}}
+                </p>
+            </div>
+            <div class="genre_container">
+                <b>Genero</b>  : {{result.genre}}
+            </div>
+        </div>
+
+        <div class="imageContainer">
+            <img src="{{result.image}}" width="100%"/>
+        </div>
+            
+        <div class="resumeContainer">
+            <p>
+               {{result.synopsis}}
+            </p>
+        </div>  
+    </div>
 
 {% else %}
 
 {% endif %}
+
+{% endblock %}

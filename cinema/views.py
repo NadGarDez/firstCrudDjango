@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 
 from .models import Movie, Genre, Actor, Director
 from django.template import loader
@@ -12,13 +12,16 @@ def index(request):
 # page of the movie
 
 def movie(request, movie_id):
-    results_list = Movie.objects.all()
+    try:
+        result = Movie.objects.get(pk=movie_id)
+
+    except Movie.DoesNotExist:
+        raise Http404("Movie does not exist")
+
     template = loader.get_template("cinema/movie_list.html")
     context = {
-        'results' : results_list
+        'result' : result
     }
-    for i in results_list:
-        print(i)
     return HttpResponse(template.render(context, request))
 
 # page of the genre
