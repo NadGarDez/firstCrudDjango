@@ -18,20 +18,70 @@ def movie(request, movie_id):
     except Movie.DoesNotExist:
         raise Http404("Movie does not exist")
 
-    template = loader.get_template("cinema/movie_list.html")
+    template = loader.get_template("cinema/movie.html")
+
+    actors_query = result.actors.get_queryset()
+    director_query = Director.objects.get(name=result.director)
+    genre_query = result.genre.get_queryset()
+
     context = {
-        'result' : result
+        'result' : result,
+        'actors': actors_query,
+        'actors_len': actors_query.count(),
+        'director': director_query,
+        'genres': genre_query, 
+        'genres_len': genre_query.count()
     }
     return HttpResponse(template.render(context, request))
 
+def movies(request):
+    return HttpResponse("movies")
+
 # page of the genre
 def genre(request, genre_id):
-    return HttpResponse("genre name %s." % genre_id)
+    try:
+        movieResult = Movie.objects.all().filter(genre=genre_id)
+        genreResult = Movie.objects.get(pk=genre_id)
+        
+    except Genre.DoesNotExist:
+        raise Http404("Actor does not exist")
+    
+    template = loader.get_template("cinema/genre.html")
+
+    context = {
+        'movie_result': movieResult,
+        'genre_result': genreResult
+    }
+
+    return HttpResponse(template.render(context, request))
+    
 
 # page of the actor
 
 def actor(request, actor_id):
-    return HttpResponse("actor %s." % actor_id)
+    try:
+        result = Actor.objects.get(pk=actor_id)
+    except Actor.DoesNotExist:
+        raise Http404("Actor does not exist")
+    
+    print(result)
+    template = loader.get_template("cinema/actor.html")
+
+    context = {
+        'result': result
+    }
+
+    return HttpResponse(template.render(context, request))
+    
+
 
 def director(request, director_id):
-    return HttpResponse("director %s." % director_id)
+    try:
+        result = Director.objects.get(pk=director_id)
+    except Director.DoesNotExist:
+        raise Http404("Director does not exist")
+    template=loader.get_template("cinema/director.html")
+    context = {
+        'result':result
+    }
+    return HttpResponse(template.render(context, request))

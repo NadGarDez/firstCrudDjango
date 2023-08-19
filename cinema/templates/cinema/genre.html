@@ -1,0 +1,87 @@
+{% extends "cinema/base.html" %}
+
+{% block header %}
+    {%include "cinema/header.html"%}
+{% endblock%}
+{% block content %}
+{% if genre_result %}
+    <style>
+        .information-container {
+            background-color: beige;
+            margin-top: 16;
+            border-radius: 5px;
+            padding: 8px;
+            flex: 1;
+        }
+        .movieTitleContainer p {
+            font-size: 30px;
+            font-weight: 700;
+            color: #ff8e00;
+            margin-bottom: 36px;
+        }
+
+        .resumeContainer {
+            margin-top: 16px;
+            color: rgb(39, 130, 241);
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+        .imageContainer {
+            display: flex;
+            width: "100%";
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .cardContainer{
+            padding: 12px;
+            display: flex;
+            width: "80%";
+            flex-direction: row;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            border-radius: 5px;
+            background-color: white;
+        }
+        .cardInformationContainer {
+            color:rgb(39, 130, 241);
+            font-size: 26;
+            margin-left: 16px;
+        }
+        .cardDescription {
+            color:rgb(39, 130, 241);
+            font-size: 16;
+        }
+    </style>
+    <div class="information-container">
+        <div class="movieTitleContainer">
+            <p>{{genre_result.name}}</p>
+        </div>
+
+        {% for i in genre_result %}
+            <div class="cardContainer">
+                <div class="imageCardContainer">
+                    <img src="{{result.image}}" height="200px"/>
+                </div>
+                <div class="cardInformationContainer">
+                    <div class="cardTitle">
+                        <p>
+                            {{i.name}}
+                        </p>
+                    </div>
+                    <div class="cardDescription">
+                        <p>
+                           {{i.synopsis}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% else %}
+
+{% endif %}
+
+{% endblock %}

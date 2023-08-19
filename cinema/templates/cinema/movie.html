@@ -36,6 +36,12 @@
             font-size: 20px;
             margin-bottom: 40px;
         }
+        .imageContainer {
+            display: flex;
+            width: "100%";
+            flex-direction: row;
+            justify-content: center;
+        }
     </style>
     <div class="information-container">
         <div class="movieTitleContainer">
@@ -44,21 +50,37 @@
         <div class="rowInfoContainer">
             <div class="actor_container">
                 <p>
-                    <b>Actores</b>  : {{result.actors}}
-                </p>
+                    <b>Actores</b>  : {% for i in actors%}
+                    {{result.actors_len}}
+                    <a href="{% url 'actor' i.pk %}">{{i.name}}</a> 
+                    {% if forloop.counter == actors_len%}
+                    .
+                    {% else %}
+                    ,
+                    {% endif %}
+                    {% endfor %}
+            </p>
             </div>
             <div class="director_container">
                 <p>
-                    <b>Director</b>  : {{result.director}}
+                    <b>Director</b>  :  <a href="{% url 'director' director.pk %}">{{director.name}}</a> 
                 </p>
             </div>
             <div class="genre_container">
-                <b>Genero</b>  : {{result.genre}}
+                <b>Genero</b>  : {% for i in genres %}
+                {{result.actors_len}}
+                <a href="{% url 'genre' i.pk %}">{{i.name}}</a> 
+                {% if forloop.counter == genres_len%}
+                .
+                {% else %}
+                ,
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
 
         <div class="imageContainer">
-            <img src="{{result.image}}" width="100%"/>
+            <img src="{{result.image}}" height="500px"/>
         </div>
             
         <div class="resumeContainer">

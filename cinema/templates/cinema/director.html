@@ -1,0 +1,56 @@
+{% extends "cinema/base.html" %}
+
+{% block header %}
+    {%include "cinema/header.html"%}
+{% endblock%}
+{% block content %}
+{% if result %}
+    <style>
+        .information-container {
+            background-color: beige;
+            margin-top: 16;
+            border-radius: 5px;
+            padding: 8px;
+        }
+        .movieTitleContainer p {
+            font-size: 30px;
+            font-weight: 700;
+            color: #ff8e00
+        }
+
+        .resumeContainer {
+            margin-top: 16px;
+            color: rgb(39, 130, 241);
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+        .imageContainer {
+            display: flex;
+            width: "100%";
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <div class="information-container">
+        <div class="movieTitleContainer">
+            <p>{{result.name}}</p>
+        </div>
+
+        <div class="imageContainer">
+            <img src="{{result.actor_image}}" height="500px"/>
+        </div>
+            
+        <div class="resumeContainer">
+            <p>
+               {{result.actor_resume}}
+            </p>
+        </div>  
+    </div>
+
+{% else %}
+
+{% endif %}
+
+{% endblock %}

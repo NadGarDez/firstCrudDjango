@@ -4,6 +4,8 @@ from django.db import models
 
 class Actor(models.Model):
     name=models.CharField(max_length=100)
+    actor_image = models.URLField(max_length=200, null=True)
+    actor_resume = models.TextField(null=True)
     def __str__(self):
         return self.name
 
@@ -14,6 +16,8 @@ class Genre(models.Model):
 
 class Director(models.Model): 
     name=models.CharField(max_length=100)
+    actor_image = models.URLField(max_length=200, null=True)
+    actor_resume = models.TextField(null=True)
     def __str__(self):
         return self.name
 
