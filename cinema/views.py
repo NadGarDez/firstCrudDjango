@@ -7,7 +7,18 @@ from django.template import loader
 # Create your views here.
 # index of the crud
 def index(request):
-    return HttpResponse("hello world")
+    try:
+        result = Movie.objects.all()[:5]
+    except Movie.director:
+        raise Http404("There are not movies")
+    
+    template = loader.get_template("cinema/index.html")
+    
+    context = {
+        'results': result
+    }
+
+    return HttpResponse(template.render(context, request))
 
 # page of the movie
 
@@ -41,7 +52,7 @@ def movies(request):
 def genre(request, genre_id):
     try:
         movieResult = Movie.objects.all().filter(genre=genre_id)
-        genreResult = Movie.objects.get(pk=genre_id)
+        genreResult = Genre.objects.get(pk=genre_id)
         
     except Genre.DoesNotExist:
         raise Http404("Actor does not exist")
@@ -72,6 +83,9 @@ def actor(request, actor_id):
     }
 
     return HttpResponse(template.render(context, request))
+
+def actors(request):
+    return HttpResponse("Actors")
     
 
 
@@ -85,3 +99,10 @@ def director(request, director_id):
         'result':result
     }
     return HttpResponse(template.render(context, request))
+
+def directors(request):
+    return HttpResponse("Directors")
+
+def search(request, search, category):
+    return HttpResponse("Search in " + category + ": " + search)
+

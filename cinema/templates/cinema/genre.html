@@ -58,10 +58,10 @@
             <p>{{genre_result.name}}</p>
         </div>
 
-        {% for i in genre_result %}
+        {% for i in results %}
             <div class="cardContainer">
                 <div class="imageCardContainer">
-                    <img src="{{result.image}}" height="200px"/>
+                    <img src="{{i.image}}" height="200px"/>
                 </div>
                 <div class="cardInformationContainer">
                     <div class="cardTitle">

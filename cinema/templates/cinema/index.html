@@ -1,0 +1,123 @@
+{% extends "cinema/base.html" %}
+
+{% block header %}
+    {%include "cinema/header.html"%}
+{% endblock%}
+{% block content %}
+
+<style>
+
+    .information-container {
+        background-color: beige;
+        margin-top: 16;
+        border-radius: 5px;
+        padding: 8px;
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .movieTitleContainer p {
+        font-size: 30px;
+        font-weight: 700;
+        color: #ff8e00
+    }
+
+    .resumeContainer {
+        margin-top: 16px;
+        color: rgb(39, 130, 241);
+        font-size: 20px;
+        margin-bottom: 40px;
+    }
+    .imageContainer {
+        display: flex;
+        width: "100%";
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .cardContainer{
+        padding: 12px;
+        display: flex;
+        width: "80%";
+        flex-direction: row;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        border-radius: 5px;
+        background-color: white;
+        margin-bottom: 6px;
+    }
+    .cardInformationContainer {
+        color:rgb(39, 130, 241);
+        font-size: 26;
+        margin-left: 16px;
+    }
+    .cardDescription {
+        color:rgb(39, 130, 241);
+        font-size: 16;
+    }
+
+    .movieTitleContainer {
+        margin-bottom: 8px;
+    }
+
+    .title-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+    }
+
+    .title-container h1 {
+        color: rgb(39, 130, 241);
+        font-family: monospace;
+        font-size: 50px;
+    }
+
+    .cardTitle p{
+        margin-bottom: 5px;
+    }
+</style>
+<div class="information-container">
+    <div class="title-container">
+        <div class="titleIndex">
+            <h1>Welcome to Cinema CRUD<h1>
+        </div>
+    </div>
+    <div class="popular_movies_container">
+        {% if results %}
+            <div class="movieTitleContainer">
+                <p>Most popular movies</p>
+            </div>
+            {% for i in results %}
+                        <div class="cardContainer">
+                            <div class="imageCardContainer">
+                                <img src="{{i.image}}" height="200px"/>
+                            </div>
+                            <div class="cardInformationContainer">
+                                <div class="cardTitle">
+                                    <a href="{% url 'movie' i.pk %}">
+                                        <p>
+                                            {{i.name}}
+                                        </p>
+                                    </a>
+                                    
+                                </div>
+                                <div class="cardDescription">
+                                    <p>
+                                    {{i.synopsis}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+            {% endfor %}
+        {% else %}
+
+        {% endif %}
+    </div>
+    
+</div>
+
+{% endblock %}

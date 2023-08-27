@@ -40,6 +40,7 @@
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    font-family: fantasy;
     }
 
     .logo {
@@ -56,6 +57,7 @@
         font-size: 20;
         color: rgb(0, 46, 104); 
         font-weight: 700;
+        font-family: fantasy;
     }
 
     .titleContainer {
@@ -63,6 +65,7 @@
         flex-direction: row;
         flex-grow: 1;
         padding-left: 8px;
+        font-family: fantasy;
     }
     .titleContainer h2 {
        color: aliceblue;
@@ -104,6 +107,14 @@
        font-weight: 700;
        color: rgb(0, 46, 104); 
     }
+    .selectStyles {
+        margin-left: 4px;
+    }
+
+    .link {
+        color:aliceblue;
+        margin-left: 10px;
+    }
     
   </style>
 <header>
@@ -118,14 +129,66 @@
                 Movies
             </h2>
         </div>
-        <div class="searchContainer">
-            <input type="text" placeholder="Movie name"/>
-            <button class="buttonBody">
-                    <p>Search</p>
-            </button>
+        {% if request.path != '/cinema/' %}
 
+            <div class="searchContainer">
+                <input type="text" placeholder="Movie name" id="searchTextInput"/>
+                <select class="selectStyles" id="searchSelect">
+                    <option value="all" selected>All</option>
+                    <option value="actor">Actor</option>
+                    <option value="director">Director</option>
+                    <option value="genre">Genre</option>
+                    <option value="movie">Movie</option>
+                </select>
+                <button class="buttonBody" id="buttonSearch">
+                        <p>Search</p>
+                </button>
+
+            </div>
+        {% else %}
+        <div class="searchContainer">
+            <a href="{% url 'movies' %}"><p class="link">Movies</p></a>
+            <a  href="{% url 'actors' %}"><p class="link">Actors</p></a>
+            <a href="{% url 'directors' %}"><p class="link">Directors</p></a>
         </div>
+        
+        {% endif %}
     </div>
 </header>
+
+<script>
+    const input = document.getElementById("searchTextInput");
+    const button = document.getElementById("buttonSearch");
+    const select = document.getElementById("searchSelect");
+    let category ="all"
+
+    let textValue = ""
+
+    input.addEventListener("input",
+        (e)=> {
+            textValue = e.target.value
+        }
+    )
+    select.addEventListener(
+        "change",
+        (e)=> {
+           category = e.target.value;
+        }
+    )
+
+    button.addEventListener(
+        "click",
+        ()=> {
+            if(textValue.length > 0){
+                const searchUrl = `http://127.0.0.1:8000/cinema/search/${textValue}/${category}`;
+                location.href = searchUrl;
+            }
+            
+        }
+    )
+
+
+
+</script>
 
   
