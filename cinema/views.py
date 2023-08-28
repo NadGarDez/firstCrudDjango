@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from .models import Movie, Genre, Actor, Director
 from django.template import loader
 from django.urls import reverse
-
+from django.views import generic
 # Create your views here.
 # index of the crud
 def index(request):
@@ -45,9 +45,7 @@ def movie(request, movie_id):
         'genres_len': genre_query.count()
     }
     return HttpResponse(template.render(context, request))
-
-def movies(request):
-    return HttpResponse("movies")
+    
 
 # page of the genre
 def genre(request, genre_id):
@@ -136,3 +134,14 @@ def save_genre(request):
     
 
 
+class Movies(generic.ListView):
+    model = Movie
+    context_object_name = "results"
+
+class Actors(generic.ListView):
+    model = Actor
+    context_object_name = "results"
+
+class Directors(generic.ListView):
+    model = Director
+    context_object_name = "results"
