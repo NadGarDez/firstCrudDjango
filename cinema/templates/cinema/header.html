@@ -114,15 +114,22 @@
     .link {
         color:aliceblue;
         margin-left: 10px;
+        text-decoration: none;
     }
+
+    #logo-index {
+        text-decoration: none;
+    } 
     
   </style>
 <header>
     <div class="container">
         <div class="logo">
-            <p class="logoFont">
-                M
-            </p>
+            <a href="{% url 'index' %}" id="logo-index">
+                <p class="logoFont">
+                    M
+                </p>
+            </a>
         </div>
         <div class="titleContainer">
             <h2>

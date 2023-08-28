@@ -11,5 +11,8 @@ urlpatterns = [
     path("director/<int:director_id>/", views.director, name="director"),
     path("directors/", views.directors, name="directors"),
     path("genre/<int:genre_id>/", views.genre, name="genre"),
-    path("search/<str:search>/<str:category>/", view=views.search, name="search")
+    path("genre/form/", views.genre_form, name="set_genre"),
+    path("search/<str:search>/<str:category>/", view=views.search, name="search"),
+    path("success_screen/<str:title>/<str:subtitle>",view=views.success_screen,name="success" ),
+    path("save_genre",view=views.save_genre, name="save_genre")
 ]

@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 
 from .models import Movie, Genre, Actor, Director
 from django.template import loader
+from django.urls import reverse
 
 # Create your views here.
 # index of the crud
@@ -105,4 +106,33 @@ def directors(request):
 
 def search(request, search, category):
     return HttpResponse("Search in " + category + ": " + search)
+
+def success_screen(request, title, subtitle):
+
+    context= {
+        "title": title,
+        "subtitle":subtitle
+    }
+
+    template = loader.get_template("cinema/success.html")
+
+    return HttpResponse(template.render(context,request))
+
+def genre_form(request):
+    template = loader.get_template("cinema/genre_form.html")
+
+    return HttpResponse(template.render({},request))
+
+def save_genre(request):
+    try:
+        genre = Genre()
+        genre.name = request.POST["genre_name"]
+        genre.save()
+       
+    except:
+        return Http404("Error saving your genre")
+
+    return HttpResponseRedirect(reverse("success",args=("Success", "Saved genre successfully")))
+    
+
 
